@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postcommentdb
+spec:
+  selector:
+    matchLabels:
+      app: postcommentdb
+  template:
+    metadata:
+      labels:
+        app: postcommentdb
+    spec:
+      containers:
+      - name: postcommentdb
+        image: mcmoe/mssqldocker:v2017.CU12.1
+        env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: SA_PASSWORD
+          value: 1p@sswordY
+        - name: MSSQL_DB
+          value: postcommentdb
+        - name: MSSQL_USER
+          value: postcommentdb_app
+        - name: MSSQL_PASSWORD
+          value: 1p@sswordY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postcommentdb
+spec:
+  selector:
+    app: postcommentdb
+  ports:
+  - port: 1433
+    targetPort: 1433

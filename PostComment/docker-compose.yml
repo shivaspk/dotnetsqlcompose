@@ -13,7 +13,8 @@ services:
           MSSQL_DB: postcommentdb
           MSSQL_USER: postcommentdb_app
           MSSQL_PASSWORD: 1p@sswordY
-
+        ports:
+          - "1433:1433"
 
     postcomment.api:
         container_name: api_postcomment
@@ -25,5 +26,5 @@ services:
         ports:
           - "8080:80"
         environment:
-          - ASPNETCORE_ENVIRONMENT=staging
+          - sqlconnection:connectionString=Server=db;Database=postcommentdb;User=sa;Password=1p@sswordY;
         
